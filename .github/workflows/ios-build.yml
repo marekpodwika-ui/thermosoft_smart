@@ -41,6 +41,9 @@ jobs:
             -p:CreatePackage=false \
             -p:ArchiveOnBuild=false \
             -p:EnableCodeSigning=false \
+            -p:CodesignKey="" \
+            -p:CodesignProvision="" \
+            -p:ProvisioningType="" \
             --verbosity detailed
 
       - name: Upload artifacts

@@ -44,10 +44,11 @@
 		<AssemblyName>thermosoft</AssemblyName>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios' and '$(EnableCodeSigning)' != 'false'">
-		<ProvisioningType>manual</ProvisioningType>
-		<CodesignKey>Apple Distribution: marek podwika (925AU83U5H)</CodesignKey>
-		<CodesignProvision>thermosoftDistribution</CodesignProvision>
+	<!-- iOS signing: defaults empty for CI, override locally if needed -->
+	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'">
+		<ProvisioningType Condition="'$(ProvisioningType)' == ''"></ProvisioningType>
+		<CodesignKey Condition="'$(CodesignKey)' == ''"></CodesignKey>
+		<CodesignProvision Condition="'$(CodesignProvision)' == ''"></CodesignProvision>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
