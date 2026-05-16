@@ -21,19 +21,13 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Install MAUI workload
-        run: |
-          dotnet workload install maui-ios
+        run: dotnet workload install maui-ios
 
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build iOS app
+      - name: Build iOS app (with implicit restore)
         run: |
           dotnet build thermosoft/thermosoft.csproj \
             -f net9.0-ios \
-            -c Release \
-            /p:RuntimeIdentifier=iossimulator-arm64 \
-            --no-restore
+            -c Release
 
       - name: Upload artifacts
         if: success()
