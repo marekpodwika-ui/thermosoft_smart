@@ -44,7 +44,7 @@
 		<AssemblyName>thermosoft</AssemblyName>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'">
+	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios' AND '$(EnableCodeSigning)' != 'false'">
 		<ProvisioningType>manual</ProvisioningType>
 		<CodesignKey>Apple Distribution: marek podwika (925AU83U5H)</CodesignKey>
 		<CodesignProvision>thermosoftDistribution</CodesignProvision>
