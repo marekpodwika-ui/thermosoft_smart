@@ -23,6 +23,11 @@ jobs:
       - name: Install MAUI workload
         run: dotnet workload install maui-ios
 
+      - name: Accept iOS SDK licenses
+        run: |
+          sudo xcodebuild -license accept || true
+          sudo xcodebuild -runFirstLaunch || true
+
       - name: List available SDKs
         run: |
           echo "=== Xcode version ==="
@@ -44,7 +49,16 @@ jobs:
             -p:CodesignKey="" \
             -p:CodesignProvision="" \
             -p:ProvisioningType="" \
+            -bl:build.binlog \
             --verbosity detailed
+
+      - name: Upload build logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-binlog
+          path: build.binlog
+          retention-days: 1
 
       - name: Upload artifacts
         if: always()
