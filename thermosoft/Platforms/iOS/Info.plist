@@ -7,6 +7,7 @@
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
+		<integer>2</integer><!-- iPhone + iPad support -->
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
@@ -27,9 +28,43 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+
+	<!-- Version info - synchronized with csproj -->
 	<key>CFBundleShortVersionString</key>
-	<string>2</string>
+	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>1</string>
+
+	<!-- App Store required keys -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/><!-- Set to true if using custom encryption -->
+
+	<!-- Privacy descriptions - REQUIRED for App Store -->
+	<!-- Uncomment and customize based on your app's permissions -->
+	<!--
+	<key>NSCameraUsageDescription</key>
+	<string>Aplikacja potrzebuje dostępu do kamery aby...</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Aplikacja potrzebuje dostępu do zdjęć aby...</string>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Aplikacja potrzebuje dostępu do lokalizacji aby...</string>
+
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Aplikacja używa Bluetooth do komunikacji z termostatem.</string>
+
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Aplikacja potrzebuje dostępu do sieci lokalnej aby połączyć się z termostatem.</string>
+	-->
+
+	<!-- Background modes - uncomment if needed -->
+	<!--
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>fetch</string>
+	</array>
+	-->
 </dict>
 </plist>

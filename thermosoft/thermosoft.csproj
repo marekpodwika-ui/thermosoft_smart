@@ -56,9 +56,20 @@
 	  <ApplicationId>com.thermosoft.v2</ApplicationId>
 	</PropertyGroup>
 
+	<!-- iOS Release configuration for App Store -->
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
-	  <BuildIpa>False</BuildIpa>
-	  <ApplicationId>com.thermosoft.v2</ApplicationId>
+		<BuildIpa>True</BuildIpa>
+		<ApplicationId>com.thermosoft.v2</ApplicationId>
+		<CodesignKey>Apple Distribution</CodesignKey>
+		<CodesignProvision>Automatic</CodesignProvision>
+		<ArchiveOnBuild>true</ArchiveOnBuild>
+		<CodesignEntitlements>Platforms/iOS/Entitlements.plist</CodesignEntitlements>
+		<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+		<MtouchLink>SdkOnly</MtouchLink><!-- Linker: trim framework assemblies only -->
+		<EnableSGenConc>true</EnableSGenConc><!-- Concurrent garbage collection -->
+		<MtouchUseLlvm>true</MtouchUseLlvm><!-- LLVM optimizations -->
+		<MtouchEnableBitcode>false</MtouchEnableBitcode><!-- Bitcode deprecated by Apple -->
+		<Optimize>true</Optimize>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
