@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="thermosoft.Views.NewEmployeePage"
+             xmlns:ViewModels="clr-namespace:thermosoft.ViewModels;assembly=thermosoft"
+             x:Name="Etykieta"
+             
+             BackgroundColor="#111927">
+    <ContentPage.BindingContext>
+        <ViewModels:MainViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary"
+                     Priority="0"
+                     Clicked="Historia_Clicked">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesome"
+                                 Glyph="&#xf080;"
+                                 Size="20" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem Order="Primary"
+                     Priority="1"
+                     Command="{Binding IdzLoginCommand}"
+                     Clicked="ToolbarItem_Clicked">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesome"
+                                 Glyph="&#xf0c5;"
+                                 Size="20" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <StackLayout>
+            <StackLayout x:Name="PanelHarmonogram"
+                         BackgroundColor="#111927"
+                         IsEnabled="True">
+                <AbsoluteLayout x:Name="Zegar"
+                                SizeChanged="OnAbsoluteLayoutSizeChanged"
+                                HeightRequest="380">
+                    <StackLayout AbsoluteLayout.LayoutBounds="0.0, 0.0, 1.0, 1.0"
+                                 AbsoluteLayout.LayoutFlags="All"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="CenterAndExpand">
+                       
+                            <StackLayout HorizontalOptions="Center"
+                                         VerticalOptions="Center"
+                                         Spacing="5">
+                                <StackLayout Orientation="Horizontal"
+                                             HorizontalOptions="Center"
+                                             Spacing="10">
+                                <Label Text="&#xf965;"
+                                           FontSize="20"
+                                           VerticalOptions="Center"
+                                           TextColor="Red"
+                                           FontFamily="FontAwesome"
+                                           Margin="0,-5,0,0" />
+                                    <Label x:Name="ZadDzien"
+                                           FontFamily="FontAwesome" 
+                                           TextColor="Red"
+                                           FontSize="30"
+                                           WidthRequest="100"
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Center">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="ZadDzien_Tapped" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal"
+                                             HorizontalOptions="Center"
+                                             Spacing="10">
+                                    <Label Text="&#xf755;"
+                                           FontSize="20"
+                                           VerticalOptions="Center"
+                                           TextColor="RoyalBlue"
+                                           FontFamily="FontAwesome"
+                                           Margin="0,-5,0,0" />
+                                    <Label x:Name="ZadNoc"
+                                           FontFamily="FontAwesome"
+                                           TextColor="RoyalBlue"
+                                           FontSize="30"
+                                           WidthRequest="100"
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Center"
+                                           InputTransparent="False">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="ZadNoc_Tapped" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </StackLayout>
+                            </StackLayout>
+                      
+                    </StackLayout>
+                </AbsoluteLayout>
+                <ActivityIndicator x:Name="fresz"
+                                   Color="Red"
+                                   IsVisible="False" />
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center">
+                    <Button x:Name="Button_Reczny"
+                            Text="&#xf25a;"
+                            Clicked="Button_Reczny_Clicked"
+                            BackgroundColor="#111927"
+                            TextColor="White"
+                            FontSize="20"
+                            WidthRequest="60"
+                            Padding="10"
+                            FontFamily="FontAwesome" />
+                    <Button x:Name="Button_Odejmi"
+                            Text="&#xf107;"
+                            BackgroundColor="#111927"
+                            TextColor="White"
+                            FontSize="30"
+                            WidthRequest="60"
+                            Padding="10"
+                            FontFamily="FontAwesome"
+                            Pressed="Button_Odejmi_Pressed"
+                            Released="Button_Odejmi_Released" />
+                    <Button x:Name="Button_Dodaj"
+                            Text="&#xf106;"
+                            BackgroundColor="#111927"
+                            TextColor="White"
+                            FontSize="30"
+                            WidthRequest="60"
+                            Padding="10"
+                            FontFamily="FontAwesome"
+                            Pressed="Button_Dodaj_Pressed"
+                            Released="Button_Dodaj_Released" />
+                    <Button x:Name="Button_zmienTemper"
+                            Text="&#xf00c;"
+                            Clicked="Button_zmienTemper_Clicked"
+                            Command="{Binding ZmienWartoscCommand}"
+                            BackgroundColor="#111927"
+                            TextColor="LawnGreen"
+                            FontSize="30"
+                            Padding="20,10"
+                            FontFamily="FontAwesome" />
+                </StackLayout>
+            </StackLayout>
+            
+            
+            
+            <StackLayout x:Name="PanelReczny">
+                <StackLayout HeightRequest="380"
+                             BackgroundColor="#111927">
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center">
+                        <Label x:Name="temPomieszczeniaReczna"
+                               FontSize="35"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               TextColor="White"
+                               Margin="0,35" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center"
+                                 Margin="0,50,0,0">
+                        <Label Text="&#xf1da;"
+                               TextColor="White"
+                               FontSize="30"
+                               FontFamily="FontAwesome" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center">
+                        <Button x:Name="Button_OdejmiCzas"
+                                Text="&#xf107;"
+                                BackgroundColor="#111927"
+                                TextColor="White"
+                                FontSize="30"
+                                WidthRequest="60"
+                                Padding="10"
+                                FontFamily="FontAwesome"
+                                Pressed="Button_OdejmiCzas_Pressed"
+                                Released="Button_OdejmiCzas_Released" />
+                        
+                        <Label x:Name="CzasWswie"
+                               Text="00:00"
+                               TextColor="White"
+                               FontSize="30"
+                               Padding="10"
+                               FontFamily="FontAwesome"
+                               WidthRequest="120"
+                               HorizontalTextAlignment="Center" />
+                        
+                        <Button x:Name="Button_DodajCzas"
+                                Text="&#xf106;"
+                                BackgroundColor="#111927"
+                                TextColor="White"
+                                FontSize="30"
+                                WidthRequest="60"
+                                Padding="10"
+                                FontFamily="FontAwesome"
+                                Pressed="Button_DodajCzas_Pressed"
+                                Released="Button_DodajCzas_Released" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center"
+                                 Margin="0,30,0,0">
+                        <Button x:Name="Button_OdejmiReczna"
+                                Text="&#xf107;"
+                                BackgroundColor="#111927"
+                                TextColor="White"
+                                FontSize="30"
+                                WidthRequest="60"
+                                Padding="10"
+                                FontFamily="FontAwesome"
+                                Pressed="Button_OdejmiReczna_Pressed"
+                                Released="Button_OdejmiReczna_Released" />
+                        
+                        <Label x:Name="RecznaTemper"
+                               TextColor="White"
+                               FontSize="30"
+                               FontFamily="FontAwesome"
+                               Padding="10"
+                               WidthRequest="120"
+                               HorizontalTextAlignment="Center"/>
+                        
+                        <Button x:Name="Button_DodajReczna"
+                                Text="&#xf106;"
+                                BackgroundColor="#111927"
+                                TextColor="White"
+                                FontSize="30"
+                                WidthRequest="60"
+                                Padding="10"
+                                FontFamily="FontAwesome"
+                                Pressed="Button_DodajReczna_Pressed"
+                                Released="Button_DodajReczna_Released" />
+                      
+                        
+                        
+                    </StackLayout>
+                </StackLayout>
+                
+                <ActivityIndicator x:Name="freszReczny"
+                                   Color="Red"
+                                   IsVisible="False" />
+                
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             BackgroundColor="#111927">
+                    <Button x:Name="Button_Harmonogram"
+                            Text="&#xf017;"
+                            Clicked="Button_Harmonogram_Clicked"
+                            BackgroundColor="#111927"
+                            TextColor="White"
+                            FontSize="20"
+                            WidthRequest="60"
+                            Padding="10"
+                            FontFamily="FontAwesome" />
+                  
+                    <Button x:Name="Button_zmienTemperRecza"
+                            Text="&#xf00c;"
+                            Clicked="Button_zmienTemperRecza_Clicked"
+                            BackgroundColor="#111927"
+                            TextColor="LawnGreen"
+                            FontSize="30"
+                            Padding="20,10"
+                            FontFamily="FontAwesome" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

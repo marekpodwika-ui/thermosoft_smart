@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="thermosoft.Views.TodoItemPage"
+             Title="{Binding Name}">
+
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Clicked="OnSaveClicked" >
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesome"
+		     Glyph="&#xf00c;" Size="20" Color="LawnGreen"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+
+    </ContentPage.ToolbarItems>
+
+    <ScrollView BackgroundColor="Black">
+        <StackLayout Margin="20" VerticalOptions="StartAndExpand"  >
+
+            <Label Text="Nazwa" TextColor="silver"/>
+            <Entry x:Name="Nazwa" Text="{Binding Name}" TextColor="White" BackgroundColor="#000019" />
+
+            <Label Text="Adres:port" TextColor="silver" />
+            <Entry x:Name="AdresPort" Text="{Binding AdresPort}" TextColor="White" BackgroundColor="#000019" />
+
+            <Label Text="Sterownik Id" TextColor="silver"/>
+            <Entry x:Name="Serwer" Text="{Binding SerwerIdetyfikator}" TextColor="White" BackgroundColor="#000019" />
+
+            <Label Text="HostWeb" TextColor="silver"/>
+            <Entry x:Name="HostWeb" Text="{Binding HostWebsoket}" TextColor="White" BackgroundColor="#000019" />
+
+            <Label Text="Haslo" TextColor="silver"/>
+            <Entry x:Name="Haslo" Text="{Binding Haslo}" IsPassword="True" TextColor="White" BackgroundColor="#000019" />
+
+            <Label x:Name="Przelacznik" TextColor="silver" />
+            <Switch x:Name="Switch_" IsToggled="{Binding Server_Port}" Toggled="Switch_Toggled" ThumbColor="White" HorizontalOptions="Start"/>
+
+            <!--<Button Text="Save" Clicked="OnSaveClicked" BackgroundColor="#00012C" TextColor="White"/>-->
+
+    </StackLayout>
+   </ScrollView>
+    
+</ContentPage>

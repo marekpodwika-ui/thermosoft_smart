@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             x:Class="thermosoft.Views.HistoryPage"
+             BackgroundColor="#111927"
+             Title="Historia">
+    <Grid RowDefinitions="Auto,*,Auto,Auto">
+        <!-- Nagłówek z aktualnym dniem i Pickerem -->
+        <Grid Grid.Row="0" BackgroundColor="#1e2a3a" Padding="10" Margin="10,10,10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Aktualny dzień z progress -->
+            <HorizontalStackLayout Grid.Column="0" Spacing="10" VerticalOptions="Center">
+                <Label Text="{Binding CurrentDayDisplay}" 
+                       TextColor="White" 
+                       FontSize="16" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"/>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                                   Color="White" 
+                                   WidthRequest="20" 
+                                   HeightRequest="20"
+                                   VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+
+            <!-- Picker do szybkiego skoku -->
+            <Picker Grid.Column="2" 
+                    Title="⏱ Skok do..." 
+                    ItemsSource="{Binding Days}" 
+                    SelectedIndex="{Binding SelectedDayIndex}" 
+                    TextColor="White" 
+                    BackgroundColor="#2a3848"
+                    WidthRequest="150"/>
+        </Grid>
+        <ScrollView Grid.Row="1" Orientation="Horizontal" x:Name="ChartScrollView" SizeChanged="OnScrollViewSizeChanged" HorizontalScrollBarVisibility="Never">
+            <!-- Wykres -->
+            <Grid x:Name="ChartContainer" WidthRequest="{Binding ChartWidth}">
+                <lvc:CartesianChart x:Name="Chart" YAxes="{Binding YAxes}" BackgroundColor="#111927" Margin="5"
+                                    IsVisible="{Binding HasData}"
+                                    TooltipPosition="Auto"
+                                    FindingStrategy="CompareOnlyX"
+                                    ZoomMode="None"/>
+                <Label Text="Brak danych historycznych"
+                       IsVisible="{Binding HasNoData}"
+                       TextColor="#888"
+                       FontSize="16"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Border IsVisible="{Binding HasError}"
+                        BackgroundColor="#cc1e2a3a"
+                        Stroke="#e74c3c"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        Padding="16,10"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        Margin="0,10,0,0">
+                    <Label Text="{Binding ErrorMessage}"
+                           TextColor="#e74c3c"
+                           FontSize="14"
+                           HorizontalTextAlignment="Center"/>
+                </Border>
+            </Grid>
+        </ScrollView>
+        <!-- Pasek przewijania z przyciskami "Starsze" i "Nowsze" -->
+        <Grid Grid.Row="2" HeightRequest="40" ColumnDefinitions="Auto,*,Auto">
+            <!-- Przycisk "Starsze" po lewej -->
+            <Button Grid.Column="0" 
+                    x:Name="LoadPreviousButton"
+                    Text="⟨" 
+                    FontSize="24"
+                    TextColor="White"
+                    BackgroundColor="#1e2a3a"
+                    BorderWidth="0"
+                    WidthRequest="50"
+                    HeightRequest="40"
+                    Padding="0"
+                    Clicked="OnLoadPreviousDayTapped"
+                    IsVisible="{Binding CanLoadPreviousDay}"/>
+
+            <!-- Obszar przewijania -->
+            <BoxView Grid.Column="1" HeightRequest="40" InputTransparent="False">
+                <BoxView.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#0f1a28" Offset="0.0" />
+                        <GradientStop Color="#1e2a3a" Offset="0.2" />
+                        <GradientStop Color="#2a3848" Offset="0.5" />
+                        <GradientStop Color="#1e2a3a" Offset="0.8" />
+                        <GradientStop Color="#0f1a28" Offset="1.0" />
+                    </LinearGradientBrush>
+                </BoxView.Background>
+                <BoxView.GestureRecognizers>
+                    <PanGestureRecognizer PanUpdated="OnPanUpdated"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <!-- Przycisk "Nowsze" po prawej -->
+            <Button Grid.Column="2" 
+                    x:Name="LoadNextButton"
+                    Text="⟩" 
+                    FontSize="24"
+                    TextColor="White"
+                    BackgroundColor="#1e2a3a"
+                    BorderWidth="0"
+                    WidthRequest="50"
+                    HeightRequest="40"
+                    Padding="0"
+                    Clicked="OnLoadNextDayTapped"
+                    IsVisible="{Binding CanLoadNextDay}"/>
+        </Grid>
+        <HorizontalStackLayout Grid.Row="3" Spacing="15" HorizontalOptions="Center" Margin="0,5,0,10">
+            <HorizontalStackLayout Spacing="5"><BoxView Color="DodgerBlue" WidthRequest="20" HeightRequest="4" VerticalOptions="Center"/><Label Text="Temperatura" TextColor="White" FontSize="11"/></HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="5"><BoxView Color="Red" WidthRequest="20" HeightRequest="4" VerticalOptions="Center"/><Label Text="Grzanie" TextColor="White" FontSize="11"/></HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="5"><BoxView Color="Cyan" WidthRequest="10" HeightRequest="10" CornerRadius="5" VerticalOptions="Center"/><Label Text="Okno" TextColor="White" FontSize="11"/></HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="5"><BoxView Color="DimGray" WidthRequest="10" HeightRequest="10" CornerRadius="5" VerticalOptions="Center"/><Label Text="Nieobecny" TextColor="White" FontSize="11"/></HorizontalStackLayout>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

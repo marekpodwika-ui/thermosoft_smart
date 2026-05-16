@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:ViewModels="clr-namespace:thermosoft.ViewModels;assembly=thermosoft"
+             xmlns:ui="clr-namespace:thermosoft.UI"
+             x:Class="thermosoft.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ui:IdConverter x:Key="IdConverter" />
+            <ui:TemperaturaConverter x:Key="TemperaturaConverter" />
+            <ui:OknoIconConverter x:Key="OknoIconConverter" />
+            <ui:OknoColorConverter x:Key="OknoColorConverter" />
+            <ui:ZadIconConverter x:Key="ZadIconConverter" />
+            <ui:ZadIconColorConverter x:Key="ZadIconColorConverter" />
+            <ui:ZadTempConverter x:Key="ZadTempConverter" />
+            <ui:BorderStrokeConverter x:Key="BorderStrokeConverter" />
+
+            <DataTemplate x:Key="EmployeeTemplate">
+                <ViewCell>
+                    <Border Margin="10,5" Stroke="{Binding St, Converter={StaticResource BorderStrokeConverter}}"
+                            StrokeThickness="2" StrokeShape="RoundRectangle 20,20,20,20" MaximumWidthRequest="500">
+                        <Grid BackgroundColor="Black" Padding="0" HeightRequest="100">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="65"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Opacity="0.8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="60"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding St, Converter={StaticResource OknoIconConverter}}"
+                                       TextColor="{Binding St, Converter={StaticResource OknoColorConverter}}"
+                                       HorizontalOptions="Center" FontSize="20" Margin="10,0,0,0"
+                                       VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontFamily="FontAwesome"/>
+                                <Label Grid.Column="1" Text="{Binding Na}" TextColor="White"
+                                       HorizontalOptions="Center" VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center" FontSize="20"/>
+                                <Label Grid.Column="2" HorizontalOptions="Center" FontSize="18"
+                                       TextColor="White" Margin="0,0,10,0"
+                                       VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontFamily="FontAwesome">
+                                    <Label.Text>
+                                        <MultiBinding Converter="{StaticResource ZadTempConverter}">
+                                            <Binding Path="St"/>
+                                            <Binding Path="Za"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </Grid>
+                            <Grid Grid.Row="1" BackgroundColor="#111927">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Id, Converter={StaticResource IdConverter}}"
+                                       HorizontalOptions="Start" VerticalOptions="Start"
+                                       TextColor="DimGray" FontSize="8" Opacity="0.6" Margin="40,0,0,0"/>
+                                <Label Grid.Column="1" Text="{Binding Te, Converter={StaticResource TemperaturaConverter}}"
+                                       HorizontalOptions="Center" TextColor="White"
+                                       VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                                       FontSize="35" FontFamily="FontAwesome"/>
+                                <Label Grid.Column="2" FontSize="20"
+                                       TextColor="{Binding St, Converter={StaticResource ZadIconColorConverter}}"
+                                       VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                                       HorizontalOptions="End" Margin="0,0,20,0" FontFamily="FontAwesome">
+                                    <Label.Text>
+                                        <MultiBinding Converter="{StaticResource ZadIconConverter}">
+                                            <Binding Path="St"/>
+                                            <Binding Path="Za"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <ViewModels:MainViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary"
+                     Priority="0"
+                     Clicked="Odswierz_Clicked">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesome"
+                                 Glyph="&#xf2f1;"
+                                 Size="20" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <StackLayout Orientation="Vertical" BackgroundColor="#37474f">
+        <ListView x:Name="EmployeesListView"
+                  ItemsSource="{Binding EmployeesList}"
+                  BackgroundColor="#111927"
+                  IsPullToRefreshEnabled="true"
+                  RefreshControlColor="Red"
+                  IsRefreshing="{Binding IsBusy}"
+                  HasUnevenRows="True"
+                  SelectionMode="Single"
+                  ItemTapped="ListView_ItemTapped"
+                  ItemTemplate="{StaticResource EmployeeTemplate}"
+                  IsEnabled="{Binding IsBusy_Lista}"/>
+    </StackLayout>
+</ContentPage>

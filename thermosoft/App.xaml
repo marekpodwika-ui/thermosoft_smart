@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="thermosoft.App">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!-- FONTS -->
+            <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
+                <On Platform="iOS" Value="Font Awesome 5 Pro" />
+                <On Platform="Android" Value="Font Awesome 5 Pro-Solid-900.otf#Font Awesome 5 Pro Solid" />
+            </OnPlatform>
+
+        </ResourceDictionary>
+
+
+
+    </Application.Resources>
+</Application>

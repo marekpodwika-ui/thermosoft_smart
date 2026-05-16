@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="thermosoft.Views.TodoListPage" BackgroundColor="Black" >
+
+
+
+    <ContentPage.ToolbarItems>
+       
+        <ToolbarItem Clicked="OnItemAdded" >
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesome"
+					    Glyph="&#xf055;"  Size="20"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+
+    </ContentPage.ToolbarItems>
+
+
+    <StackLayout >
+       
+        <ListView x:Name="listView" Margin="20" ItemSelected="OnListItemSelected" BackgroundColor="Black" SeparatorColor="Aquamarine"  >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        
+                        <ViewCell.ContextActions >
+                            <MenuItem Text="EDYTUJ" Clicked="OnEditClicked">
+                                <MenuItem.IconImageSource>
+                                    <FontImageSource FontFamily="FontAwesome"
+					              Glyph="&#xf303;"  Size="20"/>
+                                </MenuItem.IconImageSource>
+                            </MenuItem>
+                            <MenuItem Text="USUŃ" Clicked="OnDeleteClicked">
+                                <MenuItem.IconImageSource>
+                                    <FontImageSource FontFamily="FontAwesome"
+					              Glyph="&#xf2ed;"  Size="20"/>
+                                </MenuItem.IconImageSource>
+                            </MenuItem>
+                        </ViewCell.ContextActions>
+
+                        <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                            <Label x:Name="Nameee" TextColor="Red" Text="{Binding Name}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand"/>
+                            <Label Text="&#xf233;" TextColor="Red"
+                               HorizontalOptions="End" IsVisible="{Binding Server_Port}"
+                               FontFamily="FontAwesome"/>
+
+
+
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackLayout>
+
+</ContentPage>

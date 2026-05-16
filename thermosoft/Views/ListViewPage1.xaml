@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:ViewModels="clr-namespace:thermosoft.ViewModels;assembly=thermosoft"
+             Title=" Kopiuj do"
+             x:Class="thermosoft.Views.ListViewPage1"
+             BackgroundColor="#111927">
+    <ContentPage.BindingContext>
+        <ViewModels:MainViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="Zatwierdz"
+                     Order="Primary"
+                     Priority="0"
+                     Clicked="Zatwierdz_Clicked">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesome"
+                                 Glyph="&#xf00c;"
+                                 Size="20"
+                                 Color="LawnGreen" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems >
+    <!--<Shell.TitleView >
+        <StackLayout  Orientation="Horizontal"  HeightRequest="50">
+
+
+        <StackLayout Orientation="Vertical" HorizontalOptions="End"  WidthRequest="40" >
+          <CheckBox x:Name="Wszyskie" 
+           IsChecked="False" Color="Red"
+           CheckedChanged ="Wszyskie_CheckedChanged"
+           HorizontalOptions="End"
+           VerticalOptions="CenterAndExpand"
+           Margin="0,0,0,0"/>
+        </StackLayout>
+
+
+            <Label Text="Wszystkie" 
+             TextColor="White"  FontSize="20"
+             VerticalOptions="Center" />
+
+
+            <Button x:Name="Zatwierdz" Text="&#xf00c;" Clicked="Zatwierdz_Clicked" VerticalOptions="StartAndExpand"   HorizontalOptions="EndAndExpand" 
+            TextColor="LawnGreen" 
+        FontSize="25" FontFamily="FontAwesome" Margin="0,0,0,0" />
+
+
+
+
+        </StackLayout>
+    </Shell.TitleView>-->
+    <StackLayout Orientation="Vertical">
+        <StackLayout  Orientation="Horizontal"
+                      HeightRequest="50">
+            <StackLayout Orientation="Vertical"
+                         HorizontalOptions="End"
+                         WidthRequest="40">
+                <CheckBox x:Name="Wszyskie"
+                          IsChecked="False"
+                          Color="Red"
+                          CheckedChanged="Wszyskie_CheckedChanged"
+                          HorizontalOptions="End"
+                          VerticalOptions="CenterAndExpand"
+                          Margin="6,0,0,0" />
+            </StackLayout>
+            <Label Text=" Wszystkie"
+                   TextColor="White"
+                   FontSize="20"
+                   VerticalOptions="Center" />
+            <!--<Button x:Name="Zatwierdz" Text="&#xf00c;" Clicked="Zatwierdz_Clicked" VerticalOptions="StartAndExpand"   HorizontalOptions="EndAndExpand" 
+                  BackgroundColor="Black" TextColor="LawnGreen" 
+               FontSize="25" FontFamily="FontAwesome" Margin="6,6,6,6" />-->
+        </StackLayout>
+        <ListView x:Name="EmployeesListViewCopyTo"
+                  ItemsSource="{Binding EmployeesListCopyTo }"
+                  BackgroundColor="#111927"
+                  HasUnevenRows="True"
+                  ItemTapped="EmployeesListViewCopyTo_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout  Orientation="Horizontal"
+                                      Margin="5"
+                                      HeightRequest="35"
+                                      BackgroundColor="#223458">
+                            <StackLayout Orientation="Vertical"
+                                         HorizontalOptions="End"
+                                         WidthRequest="31"
+                                         BackgroundColor="Black"
+                                         Margin="2">
+                                <Label Text="&#xf00c;"
+                                       TextColor="White"
+                                       FontFamily="FontAwesome"
+                                       FontSize="15"
+                                       HorizontalOptions="Center"
+                                       IsVisible="{Binding CzakBox}"
+                                       VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical"
+                                         HorizontalOptions="StartAndExpand">
+                                <Label Text="{Binding Na}"
+                                       TextColor="White"
+                                       HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

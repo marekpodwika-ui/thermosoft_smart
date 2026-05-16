@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="thermosoft.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:thermosoft"
+       Shell.FlyoutBehavior="Flyout"
+       Title="thermosoft"
+       FlyoutBackgroundColor="#336699"
+       Shell.TitleColor="White"
+       BackgroundColor="#111927">
+    
+    
+    <ShellContent Title="Schowaj"
+                  ContentTemplate="{DataTemplate local:MainPage}"
+                  Route="MainPage">
+        <ShellContent.Icon>
+            <FontImageSource FontFamily="FontAwesome"
+                             Glyph="&#xf015;"
+                             Size="25" />
+        </ShellContent.Icon>
+    </ShellContent>
+    <MenuItem Text="Ustawienia"
+              Clicked="OnSettingsClicked">
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="FontAwesome"
+                             Glyph="&#xf013;"
+                             Size="25" />
+        </MenuItem.IconImageSource>
+    </MenuItem>
+</Shell>

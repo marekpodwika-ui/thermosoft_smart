@@ -1,0 +1,50 @@
+name: Build iOS
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # Możesz uruchomić ręcznie z GitHub
+
+jobs:
+  build-ios:
+    runs-on: macos-15  # Mac z Xcode 26 w chmurze
+
+    steps:
+      - name: 📥 Pobierz kod
+        uses: actions/checkout@v4
+
+      - name: 🔧 Zainstaluj .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: 📦 Zainstaluj workload MAUI iOS
+        run: |
+          dotnet workload install maui-ios --skip-sign-check
+
+      - name: 🔄 Przywróć pakiety NuGet
+        run: dotnet restore thermosoft_smart.sln
+
+      - name: 🏗️ Zbuduj aplikację iOS (Simulator)
+        run: |
+          dotnet build thermosoft/thermosoft.csproj \
+            -f net9.0-ios \
+            -c Debug \
+            /p:RuntimeIdentifier=iossimulator-arm64
+
+      - name: 📊 Podsumowanie
+        if: success()
+        run: |
+          echo "✅ Build iOS zakończony sukcesem!"
+          echo "📱 Platforma: iOS Simulator (ARM64)"
+          echo "🎯 框架: .NET 9 MAUI"
+
+      - name: 📤 Zapisz artefakty buildu
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build-artifacts
+          path: thermosoft/bin/Debug/net9.0-ios/
+          retention-days: 7
