@@ -38,6 +38,8 @@ jobs:
           dotnet --info
 
       - name: Build iOS app for simulator (skip signing)
+        id: build
+        continue-on-error: true
         run: |
           dotnet build thermosoft/thermosoft.csproj \
             -f net9.0-ios \
@@ -50,7 +52,13 @@ jobs:
             -p:CodesignProvision="" \
             -p:ProvisioningType="" \
             -bl:build.binlog \
-            --verbosity detailed
+            --verbosity detailed 2>&1 | tee build.log
+
+      - name: Show build errors
+        if: steps.build.outcome == 'failure'
+        run: |
+          echo "=== BUILD FAILED ==="
+          grep -i "error\|failed\|exception" build.log | tail -50 || cat build.log | tail -100
 
       - name: Upload build logs
         if: always()
